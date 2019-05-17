@@ -1,0 +1,11 @@
+{
+  "name": "crypto-buddy",
+  "version": "1.0.0",
+  "description": "crypto wallet, live market display, individual coin info",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "sabareesh",
+  "license": "ISC"
+}
