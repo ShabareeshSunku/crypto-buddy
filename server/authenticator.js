@@ -1,8 +1,5 @@
+const dao = require('./dao')
 class Authenticator {
-    constructor(dao) {
-        this.dao = dao
-        this.createTable()
-    }
     createTable() {
         const sql = `
         CREATE TABLE IF NOT EXISTS users (
@@ -10,28 +7,29 @@ class Authenticator {
           name Text,
           emailId TEXT,
           password Text)`
-        return this.dao.run(sql)
+        return dao.run(sql)
     }
 
     create(name, emailId, password) {
-        return this.dao.run(`
+        this.createTable()
+        return dao.run(`
         INSERT INTO users (name, emailId, password)
         VALUES (?,?,?)`, [name, emailId, password])
     }
     getUserByEmailid(emailId) {
-        return this.dao.get(`
+        return dao.get(`
         SELECT * FROM users WHERE emailid=?
         `, [emailId])
     }
     getUserById(id) {
-        return this.dao.get(`
+        return dao.get(`
         SELECT * FROM users WHERE id=?
         `, [id])
     }
-    getAll(emailId){
-        return this.dao.all(`
+    getAll(emailId) {
+        return dao.all(`
         SELECT * FROM users`)
     }
 }
 
-module.exports = Authenticator
+module.exports = new Authenticator()
